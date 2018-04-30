@@ -1,0 +1,1 @@
+Just a little edit of krisajenkins' great package [elm-dialog](https://github.com/krisajenkins/elm-dialog), modified to work with Bulma for the sake of a work project. 
