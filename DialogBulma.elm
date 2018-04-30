@@ -71,7 +71,7 @@ view maybeConfig =
             [ div
                 ([ classList
                     [ ( "modal", True )
-                    , ( "in", displayed )
+                    , ( "is-active", displayed )
                     ]
                  , style
                     [ ( "display"
@@ -83,21 +83,22 @@ view maybeConfig =
                     ]
                  ]
                 )
-                [ div [ class "modal-dialog" ]
-                    [ div [ class "modal-content" ]
-                        (case maybeConfig of
-                            Nothing ->
-                                [ empty ]
+                [ div [ class "modal-background" ]
+                    [ div [ class "modal-card" ]
+                        [ div [ class "modal-content" ]
+                            (case maybeConfig of
+                                Nothing ->
+                                    [ empty ]
 
-                            Just config ->
-                                [ wrapHeader config.closeMessage config.header
-                                , maybe empty wrapBody config.body
-                                , maybe empty wrapFooter config.footer
-                                ]
-                        )
+                                Just config ->
+                                    [ wrapHeader config.closeMessage config.header
+                                    , maybe empty wrapBody config.body
+                                    , maybe empty wrapFooter config.footer
+                                    ]
+                            )
+                        ]
                     ]
                 ]
-            , backdrop maybeConfig
             ]
 
 
@@ -106,7 +107,7 @@ wrapHeader closeMessage header =
     if closeMessage == Nothing && header == Nothing then
         empty
     else
-        div [ class "modal-header" ]
+        div [ class "modal-card-head" ]
             [ maybe empty closeButton closeMessage
             , Maybe.withDefault empty header
             ]
@@ -114,19 +115,19 @@ wrapHeader closeMessage header =
 
 closeButton : msg -> Html msg
 closeButton closeMessage =
-    button [ class "close", onClick closeMessage ]
+    button [ class "modal-close", onClick closeMessage ]
         [ text "x" ]
 
 
 wrapBody : Html msg -> Html msg
 wrapBody body =
-    div [ class "modal-body" ]
+    div [ class "modal-card-body" ]
         [ body ]
 
 
 wrapFooter : Html msg -> Html msg
 wrapFooter footer =
-    div [ class "modal-footer" ]
+    div [ class "modal-card-foot" ]
         [ footer ]
 
 
